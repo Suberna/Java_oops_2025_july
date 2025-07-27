@@ -1,0 +1,37 @@
+name: Auto Update README on File Upload
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate file list
+        run: |
+          echo "## 📁 Project Files" > filelist.md
+          echo "" >> filelist.md
+          find . -maxdepth 1 -type f ! -name "README.md" ! -name ".git*" | sort | sed 's|./|- |' >> filelist.md
+
+      - name: Insert file list into README.md
+        run: |
+          awk '/## 📁 Project Files/{flag=1;print;print_filelist=1;next} /##/{flag=0} !flag' README.md > temp.md
+          if [ -f filelist.md ]; then
+            cat filelist.md >> temp.md
+          fi
+          mv temp.md README.md
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add README.md
+          git commit -m "🔄 Auto-update README with file list"
+          git push
+        continue-on-error: true
