@@ -1,0 +1,442 @@
+🧠 OOP Basics
+🔹 What is OOP?
+OOP (Object-Oriented Programming) is a programming style that organizes code using objects, which are real-world entities. Each object contains data (variables) and behavior (methods).
+Java is an object-oriented language — everything revolves around classes and objects.
+
+🔧 Think of a car:
+
+Data: color, model, speed
+
+Behavior: start(), accelerate(), brake()
+
+In Java, we model such things using classes and objects.
+
+🔹 Key Concepts of OOP
+Class – Blueprint or template for creating objects.
+➤ Example: Car, Student, BankAccount
+
+Object – Instance of a class (real thing created from the blueprint).
+➤ Example: Car myCar = new Car();
+
+Encapsulation – Wrapping data and methods together, and hiding internal details.
+➤ Achieved using private variables and public getter/setter methods.
+
+Inheritance – One class can inherit properties and behavior from another class.
+➤ Reuse code. Dog inherits from Animal.
+
+Polymorphism – Same action behaves differently for different objects.
+➤ Example: draw() works differently for Circle and Square.
+
+Abstraction – Hiding complex details and showing only the essential features.
+➤ Done using abstract classes or interfaces.
+
+🔹 Why is OOP Important?
+✅ Code Reusability: Use inheritance to avoid repeating code.
+
+✅ Modularity: Organize code into logical objects/classes.
+
+✅ Scalability: Easy to maintain and extend.
+
+✅ Security: Hide internal data using encapsulation.
+
+✅ Real-world Modeling: Easy to design software around real-world things.
+
+🚀 In short: OOP makes code easier to write, understand, test, and maintain.
+
+🔸 What is Constructor Chaining?
+Constructor chaining in Java means calling one constructor from another constructor within the same class, using the keyword this().
+
+This helps to avoid repeating code and keeps constructors organized and clean.
+
+🔹 Syntax:
+java
+Copy code
+public ClassName() {
+    this(parameters); // calls another constructor in the same class
+}
+🔑 this() must be the first statement inside a constructor.
+
+🔸 Example: Simple Constructor Chaining
+java
+Copy code
+class Student {
+    String name;
+    int age;
+
+    // Constructor 1 – No parameters
+    Student() {
+        this("Unknown", 0); // calling Constructor 2
+        System.out.println("Default constructor called");
+    }
+
+    // Constructor 2 – With parameters
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+        System.out.println("Parameterized constructor called");
+    }
+
+    void display() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student();      // Calls Constructor 1 → Constructor 2
+        Student s2 = new Student("Raj", 21);  // Calls Constructor 2 directly
+
+        s1.display();  // Output: Name: Unknown, Age: 0
+        s2.display();  // Output: Name: Raj, Age: 21
+    }
+}
+🔸 Output:
+pgsql
+Copy code
+Parameterized constructor called
+Default constructor called
+Name: Unknown, Age: 0
+Parameterized constructor called
+Name: Raj, Age: 21
+✅ Why Use Constructor Chaining?
+To reuse code across constructors
+
+To initialize common logic in one place
+
+To keep constructors DRY (Don’t Repeat Yourself)
+
+🔹 What is Garbage Collection in Java?
+In Java, Garbage Collection (GC) is the automatic process of releasing memory used by objects that are no longer needed by the program.
+
+You don’t need to manually delete objects like in C/C++. Java’s JVM does it for you.
+
+🔹 Why is it Needed?
+Because Java creates many objects at runtime. Once an object is no longer in use, it still occupies memory.
+To avoid memory leaks and improve performance, GC removes these unused (unreachable) objects.
+
+🔹 When Does Garbage Collection Happen?
+When the object has no reference pointing to it
+
+JVM decides when to run GC — it’s automatic, but we can suggest it using:
+
+java
+Copy code
+System.gc();
+⚠️ System.gc() is just a request, not a guarantee.
+
+🔹 Example (Simple):
+java
+Copy code
+class Test {
+    int id;
+
+    Test(int id) {
+        this.id = id;
+        System.out.println("Object " + id + " created");
+    }
+
+    protected void finalize() {
+        System.out.println("Object " + id + " is garbage collected");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Test t1 = new Test(1);
+        Test t2 = new Test(2);
+
+        t1 = null;  // No reference to object 1
+        t2 = null;  // No reference to object 2
+
+        // Request JVM to run garbage collector
+        System.gc();
+    }
+}
+🔸 Output (may vary):
+vbnet
+Copy code
+Object 1 created  
+Object 2 created  
+Object 1 is garbage collected  
+Object 2 is garbage collected  
+🔹 Key Points:
+Concept	Description
+Automatic	JVM handles it, you don’t need to worry.
+finalize() method	Called before an object is destroyed.
+System.gc()	Suggests garbage collection.
+Memory-efficient	Frees up unused objects automatically.
+
+✅ In Simple Words:
+Garbage Collection is like a cleaning robot in Java.
+When you're done using something (object), and no one refers to it,
+the robot comes and cleans it up — freeing memory for new things.
+
+🌟 What is static in Java?
+In Java, static means:
+
+Belongs to the class, not to the object.
+
+This means you can use it without creating an object of the class.
+
+🧱 1. Static Variable (also called class variable)
+✅ What is it?
+A static variable is shared by all objects of the class.
+
+📦 Example:
+java
+Copy code
+class Car {
+    static int wheels = 4; // shared by all cars
+    String color;
+}
+Even if you create 10 cars, wheels will always be 4 for all of them.
+
+java
+Copy code
+Car c1 = new Car();
+Car c2 = new Car();
+
+System.out.println(Car.wheels); // Output: 4
+🧠 2. Static Method
+✅ What is it?
+A static method can be called without creating an object.
+
+📦 Example:
+java
+Copy code
+class MathUtils {
+    static int square(int n) {
+        return n * n;
+    }
+}
+You can call it directly:
+
+java
+Copy code
+int result = MathUtils.square(5); // Output: 25
+❌ Inside static methods, you can’t use non-static variables or methods directly.
+🔲 3. Static Block
+✅ What is it?
+A static block is used to initialize static variables.
+It runs only once, when the class is loaded.
+
+📦 Example:
+java
+Copy code
+class App {
+    static int version;
+
+    static {
+        version = 2;
+        System.out.println("Static block runs first");
+    }
+}
+java
+Copy code
+// When this class is first used, static block runs
+System.out.println(App.version); // Output: Static block runs first \n 2
+🔹 Summary Table:
+Static Type	What It Does	Can You Access Without Object?
+Static Variable	Shared by all objects	✅ Yes
+Static Method	Can be called directly using class name	✅ Yes
+Static Block	Used to initialize static things at load	✅ Runs automatically
+
+🔁 Example with All:
+java
+Copy code
+class Student {
+    static String schoolName;
+
+    static {
+        schoolName = "ABC School";
+        System.out.println("Static block executed");
+    }
+
+    String name;
+    
+    Student(String name) {
+        this.name = name;
+    }
+
+    static void showSchool() {
+        System.out.println("School: " + schoolName);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student.showSchool();  // Static method
+        Student s = new Student("John");
+        System.out.println(s.name);         // Instance variable
+    }
+}
+
+🔹 Why new is Not Used with Primitive Types
+✅ Reason:
+In Java, primitive types like int, char, boolean, float, etc., are not objects. They are basic data types and are stored directly in the memory stack.
+
+The new keyword is used to create objects, which are stored in the heap memory. Since primitives are not objects, using new is unnecessary.
+
+📌 Example:
+java
+Copy code
+int a = 10;  // correct, simple, stack memory
+
+// Integer a = new Integer(10); // only needed if you want object form
+🔹 How new Keyword Allocates Memory
+✅ Explanation:
+The new keyword:
+
+Allocates heap memory for a new object.
+
+Returns a reference (address) to that memory.
+
+Calls the constructor of the class to initialize the object.
+
+📌 Example:
+java
+Copy code
+class Car {
+    Car() {
+        System.out.println("Car is created!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car();  // memory allocated + constructor called
+    }
+}
+🔹 Wrapper Classes
+✅ What are they?
+Wrapper classes are used to wrap primitive types into objects.
+
+Primitive	Wrapper Class
+int	Integer
+double	Double
+boolean	Boolean
+char	Character
+
+✅ Why useful?
+Needed for collections like ArrayList, which only work with objects.
+
+Help with object features, like using .toString() or .equals().
+
+📌 Example:
+java
+Copy code
+int x = 10;
+Integer y = Integer.valueOf(x);  // wrapping
+int z = y.intValue();            // unwrapping
+
+// Autoboxing and unboxing (automatic in Java)
+Integer a = 5;  // primitive int 5 → Integer object
+int b = a;      // Integer → int
+🔹 final Keyword Usage
+✅ Meaning:
+The final keyword is used to make something unchangeable.
+
+✅ Uses:
+Final Variable – Cannot be changed after assignment.
+
+Final Method – Cannot be overridden in subclass.
+
+Final Class – Cannot be inherited.
+
+📌 Example:
+java
+Copy code
+final int MAX = 100;
+// MAX = 200;  // ❌ Error: cannot assign a value to final variable
+
+final class Animal {
+    // class cannot be extended
+}
+
+// Final method
+class A {
+    final void show() {
+        System.out.println("Hello");
+    }
+}
+
+class B extends A {
+    // void show() {} ❌ Cannot override final method
+}
+
+🧱 What Are Wrapper Classes?
+In Java, Wrapper Classes are object versions of primitive data types.
+
+Primitive Type	Wrapper Class
+byte	Byte
+short	Short
+int	Integer
+long	Long
+float	Float
+double	Double
+char	Character
+boolean	Boolean
+
+🤔 Why Do We Need Wrapper Classes?
+Primitive types (like int, char, etc.) are not objects. But many features in Java (especially Collections like ArrayList, HashMap, etc.) require objects, not primitives.
+
+Wrapper classes convert primitives into objects, so you can:
+
+Store them in collections.
+
+Use object methods (like .toString(), .compareTo(), etc.).
+
+Handle them in generic code and frameworks that work with objects only.
+
+🧪 Example: Using Wrapper Class
+java
+Copy code
+public class Main {
+    public static void main(String[] args) {
+        int num = 10;                  // primitive
+        Integer obj = Integer.valueOf(num); // manually wrapping
+        int again = obj.intValue();         // unwrapping
+
+        System.out.println("Wrapped: " + obj);
+        System.out.println("Unwrapped: " + again);
+    }
+}
+⚡ Autoboxing and Unboxing
+Java does automatic conversion between primitives and wrappers.
+
+🔁 Autoboxing – Primitive → Wrapper
+java
+Copy code
+int x = 20;
+Integer y = x;  // autoboxing
+🔁 Unboxing – Wrapper → Primitive
+java
+Copy code
+Integer a = 50;
+int b = a;  // unboxing
+🧠 Useful Methods in Wrapper Classes
+java
+Copy code
+int x = Integer.parseInt("123");      // convert string to int
+String s = Integer.toString(100);     // convert int to string
+boolean b = Boolean.parseBoolean("true"); // convert string to boolean
+🧭 When to Use Wrapper Classes?
+When working with Collections:
+
+java
+Copy code
+ArrayList<Integer> list = new ArrayList<>();
+list.add(10);  // Autoboxing happens here
+When you need null values:
+
+java
+Copy code
+Integer count = null;  // valid
+int count = null;      // ❌ invalid for primitive
+✅ Summary
+Feature	Primitive	Wrapper
+Memory efficient	✅ Yes	❌ Slightly heavier
+Can be null	❌ No	✅ Yes
+Used in Collections	❌ No	✅ Yes
+Has object methods	❌ No	✅ Yes
+
