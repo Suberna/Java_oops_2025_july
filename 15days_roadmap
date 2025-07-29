@@ -1,0 +1,112 @@
+🎯 Goal: Master Java OOPs concepts with hands-on practice and interview readiness
+🕒 Duration: 15 Days | 💻 Focus: Concepts + Coding + Interview Prep
+🔖 LEGEND
+📘 = Theory | 🧠 = Concept Practice | 🧪 = Hands-on Coding | 🎤 = Interview Prep | 🎯 = Optional for Projects
+
+🗓️ Day 1 – Java Basics Refresher + OOPs Intro
+📘 What is Java, JVM, JRE, JDK
+📘 Hello World + Compilation
+📘 What is Object-Oriented Programming?
+🧠 Real-world analogies (Person, Car, Animal)
+🧪 Create a basic class + object (e.g., Dog class)
+
+🗓️ Day 2 – Classes, Objects & Constructors
+📘 Class, Object, Constructor, Constructor Overloading
+🧪 Create Student, Book, or Product classes with multiple constructors
+🎤 Q: What is the use of constructors in Java?
+
+🗓️ Day 3 – Inheritance
+📘 Types of inheritance (Single, Multilevel, Hierarchical – no multiple with classes)
+📘 super keyword
+🧪 Create a Vehicle → Car → ElectricCar example
+🎤 Q: Why does Java not support multiple inheritance with classes?
+
+🗓️ Day 4 – Polymorphism
+📘 Compile-time (Overloading) & Runtime (Overriding)
+🧠 Method Signature Rules
+🧪 Write overload and override examples
+🎤 Q: What is dynamic method dispatch?
+
+🗓️ Day 5 – Abstraction
+📘 Abstract Class vs Interface
+📘 When to use which?
+🧪 Create abstract class Animal and implement in Dog, Cat
+🎤 Q: Can we create an object of an abstract class?
+
+🗓️ Day 6 – Interface Mastery
+📘 Interface syntax, multiple inheritance using interfaces
+📘 Default & static methods in interfaces
+🧪 Create PaymentGateway interface implemented by Paytm, GPay, etc.
+🎤 Q: Interface vs Abstract Class (differences and examples)
+
+🗓️ Day 7 – Encapsulation & Access Modifiers
+📘 Getters and Setters
+📘 Public, Private, Protected, Default
+🧪 Make a BankAccount class encapsulated
+🎤 Q: Why is encapsulation important?
+
+🗓️ Day 8 – Static, Final, this, super
+📘 static, final, this, super keywords
+🧪 Create examples to show difference
+🎤 Q: What is the use of static methods in Java?
+
+🗓️ Day 9 – Inner Classes & Packages
+📘 Member class, Static nested, Anonymous, Local
+📘 Package creation, import
+🧪 Create a class with nested class, and use in a package
+🎤 Q: Use cases of inner classes?
+
+🗓️ Day 10 – Real-World Project OOPs Design
+🎯 Choose a mini system: Library / Employee / Course Registration
+🧪 Design full classes, attributes, inheritance
+🎤 Q: Explain OOPs used in your mini project
+
+🗓️ Day 11 – Practice Java OOPs Coding
+🧠 HackerRank: 10 Days of Java
+🧪 LeetCode: Easy level OOPs-related questions
+🎤 Prepare answers for: Object vs Class, Overriding rules, Constructor types
+
+🗓️ Day 12 – Interview MCQs + Java Edge Topics
+📘 Wrapper classes, Autoboxing
+📘 Object class methods: equals(), toString(), hashCode()
+🧪 Practice questions from Java MCQ sets
+🎤 Practice explaining: hashCode & equals
+
+🗓️ Day 13 – Mock Interview 1
+🎤 Simulate interview:
+
+Tell me about OOPs
+
+Explain polymorphism with example
+
+Write code for inheritance and overriding
+🧪 Time your code writing: < 10 mins each
+
+🗓️ Day 14 – Mock Interview 2 + DSA OOPs
+🎤 Simulate interview with DSA context:
+
+How will you implement Stack using OOPs?
+
+What OOPs concept fits binary tree traversal?
+
+🧪 Implement Stack and Queue with Java classes
+
+🗓️ Day 15 – Review & Resume Prep
+📘 Revise ALL concepts
+🎯 Update resume with:
+
+OOPs project
+
+Java proficiency
+🎤 Rehearse:
+
+"Tell me about yourself"
+
+Project + OOPs explanation
+
+🧾 Optional Extras
+Add GitHub Repo for your mini project
+
+Use UML diagrams to show class relationships
+
+Practice system design using OOPs
