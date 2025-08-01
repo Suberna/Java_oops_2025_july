@@ -1,0 +1,262 @@
+
+## ✅ Steps to Create and Use a Custom Exception in Java (General Guide)
+
+---
+
+### **1. Create a Custom Exception Class**
+
+* **Extend the `Exception` class** (or `RuntimeException` if it's unchecked).
+* **Define a constructor** to accept a custom error message.
+
+```java
+public class MyCustomException extends Exception {
+    public MyCustomException(String message) {
+        super(message); // pass message to the Exception class
+    }
+}
+```
+
+---
+
+### **2. Create a Class That Needs Validation Logic**
+
+* Add **business logic** or a **validate() method**.
+* In that method, use `throw new MyCustomException("message")` when a rule is violated.
+
+```java
+public class Validator {
+    public static void validateSomething(String input) throws MyCustomException {
+        if (/* invalid condition */) {
+            throw new MyCustomException("Descriptive error message");
+        }
+    }
+}
+```
+
+---
+
+### **3. Create a Main or Driver Class**
+
+* Take input from user (if needed).
+* Wrap the logic inside a `try-catch` block.
+* Call the validation method that might throw the custom exception.
+* Catch and handle the custom exception with appropriate message.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Validator.validateSomething("input");
+        } catch (MyCustomException e) {
+            System.out.println("MyCustomException: " + e.getMessage());
+        }
+    }
+}
+```
+
+---
+
+### ✅ Summary Table
+
+| Step | What to Do                                          | Where                    |
+| ---- | --------------------------------------------------- | ------------------------ |
+| 1    | Create a class that extends `Exception`             | Custom Exception Class   |
+| 2    | Define a constructor to take message                | Custom Exception Class   |
+| 3    | Write validation logic that throws this exception   | Logic or BO Class        |
+| 4    | Use `throw new Exception("msg")` if condition fails | Inside validation method |
+| 5    | Catch the exception using `try-catch`               | In main or driver class  |
+| 6    | Print the message or handle it properly             | In catch block           |
+
+---
+
+### 🧠 Notes
+
+* If you want to make your exception **checked**, extend `Exception`.
+* If you want an **unchecked** exception, extend `RuntimeException`.
+* Always follow **clean code practices**: separation of concerns (Validation class ≠ Main class), and proper naming.
+
+Great question! Here's what you need to do **if you want to create an unchecked (runtime) exception** instead of a checked one.
+
+---
+
+## ✅ How to Create and Use an **Unchecked Custom Exception** in Java
+
+### 🚫 Difference:
+
+* **Checked Exception** = extends `Exception` → must use `throws` and `try-catch`
+* ✅ **Unchecked Exception** = extends `RuntimeException` → no need to declare in `throws` or use `try-catch` unless you want to handle it
+
+---
+
+### ✅ Steps for Unchecked Exception (General)
+
+---
+
+### **1. Create a Custom Exception Class**
+
+```java
+public class MyRuntimeException extends RuntimeException {
+    public MyRuntimeException(String message) {
+        super(message);
+    }
+}
+```
+
+> ✅ No need for `throws` or `try-catch` if you don’t want to handle it.
+
+---
+
+### **2. Write Validation or Logic that May Throw Exception**
+
+```java
+public class Validator {
+    public static void validate(String input) {
+        if (input == null || input.isEmpty()) {
+            throw new MyRuntimeException("Input cannot be empty or null");
+        }
+    }
+}
+```
+
+---
+
+### **3. Use in Main (Optional Catch)**
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Validator.validate(""); // Will throw MyRuntimeException at runtime
+
+        // Optional:
+        // try {
+        //     Validator.validate("");
+        // } catch (MyRuntimeException e) {
+        //     System.out.println("Caught: " + e.getMessage());
+        // }
+    }
+}
+```
+
+---
+
+### 🧠 When to Use Unchecked Exception
+
+| Use Unchecked Exception when...                          | Reason                        |
+| -------------------------------------------------------- | ----------------------------- |
+| Error is due to **programming mistake**                  | Eg: null value, invalid state |
+| You want **cleaner code**                                | No need to declare `throws`   |
+| You **don’t require the caller** to handle the exception | It will crash if unhandled    |
+
+---
+
+### ✅ Summary Comparison
+
+| Feature                  | Checked (`extends Exception`) | Unchecked (`extends RuntimeException`) |
+| ------------------------ | ----------------------------- | -------------------------------------- |
+| Must declare `throws`    | ✅ Yes                         | ❌ No                                   |
+| Must catch exception     | ✅ Yes                         | ❌ No                                   |
+| Compiler forces handling | ✅ Yes                         | ❌ No                                   |
+| Use for                  | Recoverable issues            | Programmer mistakes                    |
+
+---
+
+
+Here’s a **side-by-side comparison** of a custom **Checked** vs **Unchecked** exception in Java:
+
+---
+
+## ✅ 1. Checked Exception – `extends Exception`
+
+### 🔸 Custom Exception Class
+
+```java
+public class CheckedExceptionExample extends Exception {
+    public CheckedExceptionExample(String message) {
+        super(message);
+    }
+}
+```
+
+### 🔸 Method That Throws It
+
+```java
+public class CheckedValidator {
+    public static void checkValue(int value) throws CheckedExceptionExample {
+        if (value < 0) {
+            throw new CheckedExceptionExample("Checked: Negative value not allowed");
+        }
+    }
+}
+```
+
+### 🔸 Main with Try-Catch (Required)
+
+```java
+public class MainChecked {
+    public static void main(String[] args) {
+        try {
+            CheckedValidator.checkValue(-5);
+        } catch (CheckedExceptionExample e) {
+            System.out.println("Caught checked exception: " + e.getMessage());
+        }
+    }
+}
+```
+
+---
+
+## ✅ 2. Unchecked Exception – `extends RuntimeException`
+
+### 🔸 Custom Exception Class
+
+```java
+public class UncheckedExceptionExample extends RuntimeException {
+    public UncheckedExceptionExample(String message) {
+        super(message);
+    }
+}
+```
+
+### 🔸 Method That Throws It
+
+```java
+public class UncheckedValidator {
+    public static void checkValue(int value) {
+        if (value < 0) {
+            throw new UncheckedExceptionExample("Unchecked: Negative value not allowed");
+        }
+    }
+}
+```
+
+### 🔸 Main without Try-Catch (Optional)
+
+```java
+public class MainUnchecked {
+    public static void main(String[] args) {
+        UncheckedValidator.checkValue(-5); // Will crash at runtime if not caught
+
+        // Optional try-catch:
+        // try {
+        //     UncheckedValidator.checkValue(-5);
+        // } catch (UncheckedExceptionExample e) {
+        //     System.out.println("Caught unchecked exception: " + e.getMessage());
+        // }
+    }
+}
+```
+
+---
+
+## ✅ Summary Table
+
+| Aspect                 | Checked Exception                           | Unchecked Exception                                     |
+| ---------------------- | ------------------------------------------- | ------------------------------------------------------- |
+| Extends                | `Exception`                                 | `RuntimeException`                                      |
+| Must declare in method | ✅ Yes (`throws`)                            | ❌ No                                                    |
+| Must catch             | ✅ Yes                                       | ❌ Optional                                              |
+| Compiler enforcement   | ✅ Yes                                       | ❌ No                                                    |
+| Best for               | Recoverable problems (e.g., file not found) | Programming bugs / invalid logic (e.g., divide by zero) |
+
+---
+
